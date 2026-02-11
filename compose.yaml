@@ -1,4 +1,6 @@
 services:
   app:
     image: proyecto-suma
+    build:
+      dockerfile: Dockerfile
     env_file: ".env"
