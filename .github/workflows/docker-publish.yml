@@ -38,4 +38,4 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           capture_stdout: true
-          script: docker run -d ghcr.io/${{ env.REPOSITORY_LC }}:latest
+          script: touch test
