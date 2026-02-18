@@ -14,20 +14,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: set lower case owner name
-        run: echo "OWNER_LC=${OWNER,,}" >>${GITHUB_ENV}
+      - name: Set repository case owner name
+        run: echo "REPOSITORY_LC=${REPOSITORY,,}" >>${GITHUB_ENV}
         env:
-          OWNER: '${{ github.repository_owner }}'
+          REPOSITORY: '${{ github.repository }}'
           
       - name: Check Out Repository
         uses: actions/checkout@v6
 
       - name: Login ghcr.io
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ env.OWNER_LC }} --password-stdin
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ env.REPOSITORY_LC }} --password-stdin
 
       - name: Build Docker Image
-        run: docker build -t ghcr.io/${{ env.OWNER_LC }}:latest .
+        run: docker build -t ghcr.io/${{ env.REPOSITORY_LC }}:latest .
 
       - name: Push Docker Image
-        run: docker push ghcr.io/${{ env.OWNER_LC }}:latest
+        run: docker push ghcr.io/${{ env.REPOSITORY_LC }}:latest
             
