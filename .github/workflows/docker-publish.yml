@@ -40,9 +40,9 @@ jobs:
 
       - name: Deploy to server
         run: |
-          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
-            touch /tmp/test
-          EOF
+          ssh -vvv ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "touch /root/test"
+
+  
       #- name: Despliegue con SSH
       #  uses: appleboy/ssh-action@v1
       #  with:
