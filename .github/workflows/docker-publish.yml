@@ -30,16 +30,28 @@ jobs:
 
       #- name: Push Docker Image
       #  run: docker push ghcr.io/${{ env.REPOSITORY_LC }}:latest
-        
-      - name: Despliegue con SSH
-        uses: appleboy/ssh-action@v1
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          # capture_stdout: true
-          debug: true
-          script: |
-            whoami
-            ls -al
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy to server
+        run: |
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
             touch /tmp/test
+          EOF
+      #- name: Despliegue con SSH
+      #  uses: appleboy/ssh-action@v1
+      #  with:
+      #    host: ${{ secrets.SSH_HOST }}
+      #    username: ${{ secrets.SSH_USER }}
+      #    key: ${{ secrets.SSH_PRIVATE_KEY }}
+      #    # capture_stdout: true
+      #    debug: true
+      #    script: |
+      #      whoami
+      #      ls -al
+      #      touch /tmp/test
