@@ -39,4 +39,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           # capture_stdout: true
           debug: true
-          script: touch test
+          script: |
+            whoami
+            ls -al
+            touch /tmp/test
