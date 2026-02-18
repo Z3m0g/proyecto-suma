@@ -14,25 +14,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Set repository case owner name
-        run: echo "REPOSITORY_LC=${REPOSITORY,,}" >>${GITHUB_ENV}
-        env:
-          REPOSITORY: '${{ github.repository }}'
+      #- name: Set repository case owner name
+      #  run: echo "REPOSITORY_LC=${REPOSITORY,,}" >>${GITHUB_ENV}
+      #  env:
+      #    REPOSITORY: '${{ github.repository }}'
           
-      - name: Check Out Repository
-        uses: actions/checkout@v6
+      #- name: Check Out Repository
+      #  uses: actions/checkout@v6
 
-      - name: Login ghcr.io
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ env.REPOSITORY_LC }} --password-stdin
+      #- name: Login ghcr.io
+      #  run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ env.REPOSITORY_LC }} --password-stdin
 
-      - name: Build Docker Image
-        run: docker build -t ghcr.io/${{ env.REPOSITORY_LC }}:latest .
+      #- name: Build Docker Image
+      #  run: docker build -t ghcr.io/${{ env.REPOSITORY_LC }}:latest .
 
-      - name: Push Docker Image
-        run: docker push ghcr.io/${{ env.REPOSITORY_LC }}:latest
+      #- name: Push Docker Image
+      #  run: docker push ghcr.io/${{ env.REPOSITORY_LC }}:latest
         
       - name: Despliegue con SSH
-        uses: appleboy/ssh-action@v1.2.5
+        uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
