@@ -23,11 +23,11 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Login ghcr.io
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ OWNER_LC }} --password-stdin
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ env.OWNER_LC }} --password-stdin
 
       - name: Build Docker Image
-        run: docker build -t ghcr.io/${{ OWNER_LC }}:latest .
+        run: docker build -t ghcr.io/${{ env.OWNER_LC }}:latest .
 
       - name: Push Docker Image
-        run: docker push ghcr.io/${{ OWNER_LC }}:latest
+        run: docker push ghcr.io/${{ env.OWNER_LC }}:latest
             
