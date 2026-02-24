@@ -1,6 +1,4 @@
 services:
   app:
-    image: proyecto-suma
-    build:
-      dockerfile: Dockerfile
+    image: ghcr.io/z3m0g/proyecto-suma:latest
     env_file: ".env"
